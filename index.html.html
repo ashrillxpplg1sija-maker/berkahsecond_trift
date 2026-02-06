@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berkah Second Thrift</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* TEMA EMAS UNTUK BERANDA */
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-secondary: #FFD700;
+            --gold-dark: #B8860B;
+            --gold-light: #FFF8DC;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8860B 100%);
+            --whatsapp: #25D366;
+            --instagram: #E1306C;
+            --dana: #00B5FF;
+            --cart: #FF6B6B;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+        }
+        
+        /* HANYA UNTUK HP */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        
+        /* HEADER HP TEMA EMAS */
+        .mobile-header {
+            background: var(--gold-gradient);
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-hp {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-hp i {
+            color: white;
+            font-size: 24px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .logo-hp h1 {
+            margin: 0;
+            font-size: 18px;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: 700;
+        }
+        
+        .logo-hp span {
+            color: #fff;
+            font-weight: 800;
+        }
+        
+        .cart-icon-header {
+            position: relative;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--cart);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* NAV HP TEMA EMAS */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--gold-gradient);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 20px rgba(212, 175, 55, 0.3);
+            z-index: 1000;
+        }
+        
+        .nav-item-hp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+            padding: 8px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item-hp i {
+            font-size: 20px;
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item-hp.active {
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .nav-item-hp.active i {
+            color: white;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        
+        /* HERO HP TEMA EMAS */
+        .hero-hp {
+            margin-top: 70px;
+            background: var(--gold-gradient);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-hp:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23ffffff" opacity="0.1" d="M0,0 L100,0 L100,100 Z" /></svg>');
+            opacity: 0.2;
+        }
+        
+        .hero-hp h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .hero-hp p {
+            font-size: 14px;
+            opacity: 0.95;
+            margin-bottom: 25px;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        }
+        
+        .hero-buttons-hp {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-hp {
+            padding: 14px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-wa-hp {
+            background: var(--whatsapp);
+            color: white;
+        }
+        
+        .btn-ig-hp {
+            background: var(--instagram);
+            color: white;
+        }
+        
+        .btn-cart-hp {
+            background: var(--cart);
+            color: white;
+        }
+        
+        .btn-dana-hp {
+            background: var(--dana);
+            color: white;
+        }
+        
+        .btn-gold-hp {
+            background: white;
+            color: var(--gold-dark);
+            font-weight: 700;
+        }
+        
+        .btn-hp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* PROMO BADGE */
+        .promo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #00B5FF, #0088CC);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .promo-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 181, 255, 0.3);
+        }
+        
+        .garansi-badge {
+            background: linear-gradient(135deg, #FF6B6B, #FF4757);
+        }
+        
+        .garansi-badge:hover {
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .ongkir-badge {
+            background: linear-gradient(135deg, #D4AF37, #B8860B);
+        }
+        
+        .ongkir-badge:hover {
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* PAGES */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* PRODUK HP */
+        .section-hp {
+            padding: 30px 0;
+        }
+        
+        .section-title-hp {
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title-hp:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold-gradient);
+            border-radius: 2px;
+        }
+        
+        .filter-hp {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 15px 0;
+            margin-bottom: 25px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .filter-btn-hp {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn-hp.active {
+            background: var(--gold-gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .products-grid-hp {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .product-card-hp {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card-hp:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-img-hp {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-img-hp img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card-hp:hover .product-img-hp img {
+            transform: scale(1.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--gold-gradient);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .product-info-hp {
+            padding: 20px;
+        }
+        
+        .product-name-hp {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            height: 45px;
+            overflow: hidden;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+        
+        .product-price-hp {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+        }
+        
+        .product-desc-hp {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 20px;
+            height: 60px;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+        
+        .product-actions-hp {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn-hp {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-cart-hp {
+            background: var(--cart);
+            color: white;
+        }
+        
+        .action-wa-hp {
+            background: var(--whatsapp);
+            color: white;
+        }
+        
+        .action-btn-hp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* KERANJANG PAGE */
+        .cart-page {
+            min-height: 60vh;
+        }
+        
+        .cart-items-container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .cart-item-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity {
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .remove-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-total {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gold-primary);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #eee;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .empty-cart i {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        /* FEATURES GOLD */
+        .features-gold {
+            display: flex;
+            justify-content: space-around;
+            background: var(--gold-light);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.1);
+        }
+        
+        .feature-item {
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin: 0 auto 10px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .feature-text {
+            font-size: 12px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        /* PROMO BADGES SECTION */
+        .promo-badges-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+            align-items: center;
+        }
+        
+        /* PROMO BANNER GOLD */
+        .promo-banner {
+            background: var(--gold-gradient);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .promo-banner:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23ffffff" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .promo-banner h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .promo-banner p {
+            margin: 0 0 20px 0;
+            font-size: 14px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* PAYMENT METHOD */
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .payment-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .dana-icon {
+            background: linear-gradient(135deg, #00B5FF, #0088CC);
+        }
+        
+        .bca-icon {
+            background: linear-gradient(135deg, #1a237e, #283593);
+        }
+        
+        .bri-icon {
+            background: linear-gradient(135deg, #0033a0, #0044CC);
+        }
+        
+        .bni-icon {
+            background: linear-gradient(135deg, #f15a22, #FF6B35);
+        }
+        
+        .payment-info h4 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            color: var(--dark);
+        }
+        
+        .payment-info p {
+            margin: 0;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* PADDING UNTUK NAV BOTTOM */
+        .content-padding {
+            padding-bottom: 90px;
+        }
+        
+        /* TOMBOL KEMBALI GOLD */
+        .back-btn {
+            background: var(--gold-gradient);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* CHECKOUT BUTTON */
+        .checkout-btn {
+            background: var(--whatsapp);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            border: 3px solid var(--gold-primary);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: var(--gold-primary);
+        }
+        
+        .modal-title {
+            font-size: 22px;
+            color: var(--gold-dark);
+            margin-bottom: 10px;
+        }
+        
+        .modal-body {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #666;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f1f5f9;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .highlight {
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+        
+        .modal-list {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+        
+        .modal-list li {
+            margin-bottom: 10px;
+        }
+        
+        /* FOOTER HP GOLD */
+        .footer-hp {
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-hp:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-gradient);
+        }
+        
+        .footer-hp p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .footer-gold {
+            color: var(--gold-secondary);
+            font-weight: 700;
+        }
+        
+        /* HIDE SCROLLBAR */
+        .filter-hp::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 360px) {
+            .products-grid-hp {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-hp h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER HP TEMA EMAS -->
+    <div class="mobile-header">
+        <div class="logo-hp">
+            <i class="fas fa-crown"></i>
+            <h1>Berkah<span>Thrift</span></h1>
+        </div>
+        <div class="cart-icon-header" onclick="showPage('cart')">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count-header" class="cart-count">0</span>
+        </div>
+    </div>
+
+    <!-- PAGES -->
+    <div class="container content-padding">
+        <!-- HOME PAGE TEMA EMAS -->
+        <div id="home-page" class="page active">
+            <section class="hero-hp">
+                <h2>BERKAH SECOND THRIFT</h2>
+                <p>FASHION SECOND PREMIUM DENGAN HARGA TERJANGKAU</p>
+                <div class="hero-buttons-hp">
+                    <button class="btn-hp btn-cart-hp" onclick="showPage('cart')">
+                        <i class="fas fa-shopping-cart"></i> Lihat Keranjang
+                    </button>
+                    <button class="btn-hp btn-gold-hp" onclick="showPage('products')">
+                        <i class="fas fa-shopping-bag"></i> Belanja Sekarang
+                    </button>
+                </div>
+            </section>
+
+            <!-- PROMO BADGES SECTION -->
+            <div class="promo-badges-section">
+                <div class="promo-badge ongkir-badge" onclick="showModal('ongkir')">
+                    <i class="fas fa-shipping-fast"></i>
+                    GRATIS ONGKIR SE-JABODETABEK
+                </div>
+                <div class="promo-badge garansi-badge" onclick="showModal('garansi')">
+                    <i class="fas fa-shield-alt"></i>
+                    GARANSI UANG KEMBALI JIKA ADA MASALAH
+                </div>
+            </div>
+
+            <!-- FEATURES GOLD -->
+            <div class="features-gold">
+                <div class="feature-item" onclick="showModal('ongkir')">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="feature-text">Gratis Ongkir</div>
+                </div>
+                <div class="feature-item" onclick="showModal('garansi')">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-text">Garansi 7 Hari</div>
+                </div>
+                <div class="feature-item" onclick="showPage('payment')">
+                    <div class="feature-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="feature-text">Bayar DANA</div>
+                </div>
+            </div>
+
+            <!-- PROMO BANNER -->
+            <div class="promo-banner">
+                <h3>DISKON SPESIAL 50%</h3>
+                <p>Untuk pembelian pertama Anda! Berlaku hingga 30 Desember 2024</p>
+                <button class="btn-hp btn-gold-hp" onclick="showPage('products')">
+                    <i class="fas fa-gift"></i> Belanja Sekarang
+                </button>
+            </div>
+
+            <!-- PRODUK TERLARIS -->
+            <section class="section-hp">
+                <h2 class="section-title-hp">PRODUK TERLARIS</h2>
+                
+                <div id="featured-products" class="products-grid-hp">
+                    <!-- PRODUK TERLARIS AKAN DIMUAT DI SINI -->
+                </div>
+                
+                <button class="back-btn" onclick="showPage('products')">
+                    <i class="fas fa-tshirt"></i> Lihat Semua Produk
+                </button>
+            </section>
+        </div>
+
+        <!-- PRODUCTS PAGE -->
+        <div id="products-page" class="page">
+            <button class="back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
+            
+            <section class="section-hp">
+                <h2 class="section-title-hp">SEMUA PRODUK</h2>
+                
+                <!-- PROMO BADGES -->
+                <div class="promo-badges-section">
+                    <div class="promo-badge ongkir-badge" onclick="showModal('ongkir')">
+                        <i class="fas fa-shipping-fast"></i>
+                        GRATIS ONGKIR SE-JABODETABEK
+                    </div>
+                    <div class="promo-badge garansi-badge" onclick="showModal('garansi')">
+                        <i class="fas fa-shield-alt"></i>
+                        GARANSI UANG KEMBALI JIKA ADA MASALAH
+                    </div>
+                </div>
+                
+                <div class="filter-hp">
+                    <button class="filter-btn-hp active" onclick="filterAllProducts('all')">Semua</button>
+                    <button class="filter-btn-hp" onclick="filterAllProducts('sepatu')">Sepatu (6)</button>
+                    <button class="filter-btn-hp" onclick="filterAllProducts('baju')">Baju (5)</button>
+                    <button class="filter-btn-hp" onclick="filterAllProducts('celana')">Celana (5)</button>
+                </div>
+                
+                <div id="all-products-container" class="products-grid-hp">
+                    <!-- SEMUA PRODUK AKAN DIMUAT DI SINI -->
+                </div>
+            </section>
+        </div>
+
+        <!-- CART PAGE -->
+        <div id="cart-page" class="page">
+            <button class="back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
+            
+            <section class="section-hp cart-page">
+                <h2 class="section-title-hp">KERANJANG BELANJA</h2>
+                
+                <!-- GARANSI BADGE -->
+                <div class="promo-badge garansi-badge" onclick="showModal('garansi')" style="margin-bottom: 20px; width: fit-content; margin-left: auto; margin-right: auto;">
+                    <i class="fas fa-shield-alt"></i>
+                    GARANSI UANG KEMBALI JIKA ADA MASALAH
+                </div>
+                
+                <div id="cart-items-container" class="cart-items-container">
+                    <!-- ITEM KERANJANG AKAN DIMUAT DI SINI -->
+                </div>
+                
+                <div id="cart-summary" class="cart-summary">
+                    <!-- SUMMARY AKAN DIMUAT DI SINI -->
+                </div>
+            </section>
+        </div>
+
+        <!-- PAYMENT PAGE -->
+        <div id="payment-page" class="page">
+            <button class="back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
+            
+            <section class="section-hp">
+                <h2 class="section-title-hp">PEMBAYARAN</h2>
+                
+                <!-- PROMO BADGES -->
+                <div class="promo-badges-section">
+                    <div class="promo-badge ongkir-badge" onclick="showModal('ongkir')">
+                        <i class="fas fa-shipping-fast"></i>
+                        GRATIS ONGKIR SE-JABODETABEK
+                    </div>
+                </div>
+                
+                <!-- DANA PAYMENT -->
+                <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin: 20px 0;">
+                    <h3 style="margin-bottom: 20px; text-align: center; color: var(--gold-dark);">BAYAR VIA DANA</h3>
+                    
+                    <div class="payment-method" onclick="openDana()" style="background: linear-gradient(135deg, rgba(0,181,255,0.1), rgba(0,136,204,0.1));">
+                        <div class="payment-icon dana-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>DANA</h4>
+                            <p>0896 7791 8290 (Berkah Second Thrift)</p>
+                            <p style="color: var(--dana); font-weight: 600; margin-top: 5px;">
+                                <i class="fas fa-external-link-alt"></i> Klik untuk transfer via DANA
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <p style="margin: 0; font-size: 13px; text-align: center; color: #666;">
+                            <strong>Instruksi:</strong> Buka aplikasi DANA → Transfer → Masukkan nomor di atas → Konfirmasi
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- BANK TRANSFER -->
+                <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin: 20px 0;">
+                    <h3 style="margin-bottom: 20px; text-align: center; color: var(--gold-dark);">TRANSFER BANK</h3>
+                    
+                    <div class="payment-method" onclick="copyToClipboard('1234 5678 9012', 'BCA')">
+                        <div class="payment-icon bca-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>BCA (Bank Central Asia)</h4>
+                            <p>No. Rekening: 1234 5678 9012</p>
+                            <p>a.n. BERKAH SECOND THRIFT</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" onclick="copyToClipboard('9876 5432 1011', 'BRI')">
+                        <div class="payment-icon bri-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>BRI (Bank Rakyat Indonesia)</h4>
+                            <p>No. Rekening: 9876 5432 1011</p>
+                            <p>a.n. BERKAH SECOND THRIFT</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" onclick="copyToClipboard('8765 4321 0987', 'BNI')">
+                        <div class="payment-icon bni-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>BNI (Bank Negara Indonesia)</h4>
+                            <p>No. Rekening: 8765 4321 0987</p>
+                            <p>a.n. BERKAH SECOND THRIFT</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <p style="margin: 0; font-size: 13px; color: #666;">
+                            <strong>Catatan:</strong> Klik pada metode bank untuk menyalin nomor rekening
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="contact-page" class="page">
+            <button class="back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
+            
+            <section class="section-hp">
+                <h2 class="section-title-hp">HUBUNGI KAMI</h2>
+                
+                <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <!-- DANA -->
+                    <div class="payment-method" onclick="openDana()" style="margin-bottom: 20px;">
+                        <div class="payment-icon dana-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>Payment DANA</h4>
+                            <p>0896 7791 8290</p>
+                            <p style="color: var(--dana); font-weight: 600;">
+                                <i class="fas fa-external-link-alt"></i> Klik untuk transfer via DANA
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- WHATSAPP -->
+                    <div class="payment-method" onclick="openWhatsApp()" style="margin-bottom: 20px;">
+                        <div class="payment-icon" style="background: var(--whatsapp);">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>WhatsApp</h4>
+                            <p>0823-2083-2562</p>
+                            <p style="color: var(--whatsapp); font-weight: 600;">
+                                <i class="fas fa-external-link-alt"></i> Klik untuk chat via WhatsApp
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- INSTAGRAM -->
+                    <div class="payment-method" onclick="openInstagram()">
+                        <div class="payment-icon" style="background: var(--instagram);">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>Instagram</h4>
+                            <p>@berkahsecond_thrift</p>
+                            <p style="color: var(--instagram); font-weight: 600;">
+                                <i class="fas fa-external-link-alt"></i> Klik untuk lihat Instagram
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- NAVIGASI BOTTOM HP TEMA EMAS -->
+    <nav class="mobile-nav">
+        <button class="nav-item-hp active" onclick="showPage('home')">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </button>
+        <button class="nav-item-hp" onclick="showPage('products')">
+            <i class="fas fa-tshirt"></i>
+            <span>Produk</span>
+        </button>
+        <button class="nav-item-hp" onclick="showPage('payment')">
+            <i class="fas fa-wallet"></i>
+            <span>Bayar</span>
+        </button>
+        <button class="nav-item-hp" onclick="showPage('contact')">
+            <i class="fas fa-phone-alt"></i>
+            <span>Kontak</span>
+        </button>
+    </nav>
+
+    <!-- FOOTER -->
+    <div class="footer-hp">
+        <p><strong class="footer-gold">BERKAH SECOND THRIFT</strong></p>
+        <p>Fashion Second Premium dengan Harga Terjangkau</p>
+        <p>Jl. Ratna, RT03/RW01, Jatibening, Bekasi</p>
+        <p>📞 0823-2083-2562 | 💳 DANA: 0896-7791-8290</p>
+        <p>📸 @berkahsecond_thrift</p>
+        <p style="font-size: 12px; margin-top: 20px; opacity: 0.7;">© 2024 Berkah Second Thrift</p>
+    </div>
+
+    <!-- MODAL ONGKIR -->
+    <div id="ongkir-modal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h2 class="modal-title">🚚 GRATIS ONGKIR SE-JABODETABEK</h2>
+            </div>
+            <div class="modal-body">
+                <p><strong>Kami memberikan GRATIS ONGKIR untuk wilayah:</strong></p>
+                <ul class="modal-list">
+                    <li>📍 <span class="highlight">JABODETABEK</span> (Jakarta, Bogor, Depok, Tangerang, Bekasi)</li>
+                    <li>📍 <span class="highlight">KOTA BESAR SEKITAR</span> (Karawang, Purwakarta, Cikarang, Cibitung)</li>
+                    <li>📍 <span class="highlight">WILAYAH LAINNYA</span> dengan minimum pembelian Rp 500.000</li>
+                </ul>
+                
+                <p><strong>🕐 Estimasi Pengiriman:</strong></p>
+                <ul class="modal-list">
+                    <li>✅ Jabodetabek: 1-2 hari kerja</li>
+                    <li>✅ Luar Jabodetabek: 2-5 hari kerja</li>
+                    <li>✅ Pengiriman via JNE, Gojek, atau Grab</li>
+                    <li>✅ Tracking number diberikan via WhatsApp</li>
+                </ul>
+                
+                <p><strong>📞 Untuk pertanyaan lebih lanjut:</strong></p>
+                <p>Hubungi WhatsApp: <span class="highlight">0823-2083-2562</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GARANSI -->
+    <div id="garansi-modal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2 class="modal-title">🛡️ GARANSI UANG KEMBALI</h2>
+            </div>
+            <div class="modal-body">
+                <p><strong>Kami memberikan GARANSI 100% untuk:</strong></p>
+                <ul class="modal-list">
+                    <li>💰 <span class="highlight">UANG KEMBALI 100%</span> jika barang tidak sesuai deskripsi</li>
+                    <li>🔍 <span class="highlight">BARANG CACAT/RUSAK</span> saat diterima</li>
+                    <li>📦 <span class="highlight">BARANG TIDAK SAMPAI</span> dalam 7 hari kerja</li>
+                    <li>📏 <span class="highlight">SIZE TIDAK PAS</span> (dengan syarat tertentu)</li>
+                </ul>
+                
+                <p><strong>⚠️ WAJIB ADA VIDEO UNBOXING:</strong></p>
+                <ul class="modal-list">
+                    <li>✅ Video harus merekam sejak paket belum dibuka</li>
+                    <li>✅ Tampilkan nomor resi dengan jelas</li>
+                    <li>✅ Rekam proses pembukaan paket sampai barang terlihat</li>
+                    <li>✅ Video harus utuh tanpa potongan/edit</li>
+                    <li>✅ Kirim video maksimal 24 jam setelah barang diterima</li>
+                </ul>
+                
+                <p><strong>Syarat & Ketentuan Garansi:</strong></p>
+                <ul class="modal-list">
+                    <li>✅ Laporkan masalah maksimal 24 jam setelah barang diterima</li>
+                    <li>✅ Sertakan video unboxing sebagai bukti</li>
+                    <li>✅ Barang belum dicuci/dipakai/diubah</li>
+                    <li>✅ Tag masih terpasang (jika ada)</li>
+                    <li>✅ Kemasan asli harus disimpan</li>
+                </ul>
+                
+                <p><strong>📱 Proses Klaim Garansi:</strong></p>
+                <ol class="modal-list">
+                    <li>Kirim video unboxing ke WhatsApp kami</li>
+                    <li>Jelaskan masalah yang ditemukan</li>
+                    <li>Tim kami verifikasi dalam 1x24 jam</li>
+                    <li>Jika disetujui, uang dikembalikan 100%</li>
+                    <li>Atau bisa ditukar dengan produk lain</li>
+                </ol>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 20px;">
+                    <p style="margin: 0; text-align: center;">
+                        <strong>Hubungi Kami:</strong><br>
+                        WhatsApp: <span class="highlight">0823-2083-2562</span><br>
+                        Instagram: <span class="highlight">@berkahsecond_thrift</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DATA PRODUK LENGKAP
+        const products = [
+            // SEPATU - 6 PRODUK
+            {
+                id: 1,
+                name: "Sepatu Sneakers Pria Original",
+                category: "sepatu",
+                price: 385000,
+                image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Sepatu sneakers pria original kondisi 95% baru. Bahan premium kulit sintetis, sol anti slip, sangat nyaman untuk penggunaan sehari-hari. Size: 40-44.",
+                badge: "TERLARIS"
+            },
+            {
+                id: 2,
+                name: "Sepatu Running Nike Air Max",
+                category: "sepatu",
+                price: 550000,
+                image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Sepatu running Nike Air Max original, teknologi bantalan udara terbaru. Cocok untuk olahraga atau sehari-hari. Kondisi 90% baru.",
+                badge: "PREMIUM"
+            },
+            {
+                id: 3,
+                name: "Sepatu Formal Kulit Pria",
+                category: "sepatu",
+                price: 425000,
+                image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Sepatu formal kulit pria, desain klasik elegan. Cocok untuk kerja atau acara formal. Bahan kulit sintetis berkualitas. Size: 39-43.",
+                badge: "ELEGAN"
+            },
+            {
+                id: 4,
+                name: "Sepatu Skateboard Vans",
+                category: "sepatu",
+                price: 325000,
+                image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Sepatu skateboard Vans original, model casual. Bahan canvas tebal, sol karet. Cocok untuk gaya streetwear. Size: 38-42.",
+                badge: "CASUAL"
+            },
+            {
+                id: 5,
+                name: "Sepatu Wanita Heels",
+                category: "sepatu",
+                price: 275000,
+                image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Sepatu heels wanita elegant, tinggi 7cm. Cocok untuk pesta atau acara formal. Bahan sintetis, kondisi 85% baru. Size: 36-40.",
+                badge: "WANITA"
+            },
+            {
+                id: 6,
+                name: "Sepatu Sport Adidas",
+                category: "sepatu",
+                price: 450000,
+                image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Sepatu sport Adidas original, teknologi boost untuk kenyamanan maksimal. Cocok untuk running atau gym. Size: 40-44.",
+                badge: "SPORT"
+            },
+            
+            // BAJU - 5 PRODUK
+            {
+                id: 7,
+                name: "Kaos Polo Shirt Premium",
+                category: "baju",
+                price: 125000,
+                image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Kaos polo shirt cotton premium, bahan sangat adem dan menyerap keringat. Kondisi 95% baru tanpa cacat. Size: M, L, XL.",
+                badge: "COTTON"
+            },
+            {
+                id: 8,
+                name: "Kemeja Flanel Lumberjack",
+                category: "baju",
+                price: 185000,
+                image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Kemeja flanel model lumberjack, bahan flanel tebal berkualitas. Cocok untuk musim hujan atau outdoor. Size: M, L, XL.",
+                badge: "FLANEL"
+            },
+            {
+                id: 9,
+                name: "Jaket Denim Pria Vintage",
+                category: "baju",
+                price: 275000,
+                image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Jaket denim pria vintage, model distressed look yang stylish. Bahan denim tebal berkualitas. Size: L, XL.",
+                badge: "VINTAGE"
+            },
+            {
+                id: 10,
+                name: "Hoodie Sweater Premium",
+                category: "baju",
+                price: 195000,
+                image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Hoodie sweater premium, bahan fleece tebal dan hangat. Cocok untuk cuaca dingin. Size: M, L, XL.",
+                badge: "SWEATER"
+            },
+            {
+                id: 11,
+                name: "Kemeja Formal Putih",
+                category: "baju",
+                price: 155000,
+                image: "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Kemeja formal putih, bahan oxford premium. Cocok untuk kerja atau acara formal. Size: M, L, XL.",
+                badge: "FORMAL"
+            },
+            
+            // CELANA - 5 PRODUK
+            {
+                id: 12,
+                name: "Celana Jeans Slim Fit",
+                category: "celana",
+                price: 225000,
+                image: "https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Celana jeans slim fit original, bahan denim tebal berkualitas. Model terkini, cocok untuk casual. Size: 28-34.",
+                badge: "JEANS"
+            },
+            {
+                id: 13,
+                name: "Celana Chinos Slim",
+                category: "celana",
+                price: 185000,
+                image: "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Celana chinos dengan model slim fit modern. Bahan twill premium yang nyaman. Cocok untuk kerja atau kampus.",
+                badge: "CHINOS"
+            },
+            {
+                id: 14,
+                name: "Celana Training Sport",
+                category: "celana",
+                price: 135000,
+                image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Celana training sport, bahan spandex mix elastis dan nyaman. Cocok untuk gym, lari, atau aktivitas sehari-hari.",
+                badge: "SPORT"
+            },
+            {
+                id: 15,
+                name: "Celana Cargo Pria",
+                category: "celana",
+                price: 195000,
+                image: "https://images.unsplash.com/photo-1598550874175-4d0ef436c909?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Celana cargo pria dengan banyak kantong. Bahan cotton twill tebal, cocok untuk outdoor atau casual. Size: 30-36.",
+                badge: "CARGO"
+            },
+            {
+                id: 16,
+                name: "Celana Jeans Wanita",
+                category: "celana",
+                price: 205000,
+                image: "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Celana jeans wanita skinny fit, model terkini. Bahan denim stretch, nyaman dipakai. Size: 26-32.",
+                badge: "WANITA"
+            }
+        ];
+
+        // VARIABLES
+        let cart = [];
+        let cartTotal = 0;
+
+        // SHOW PAGE FUNCTION
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-item-hp').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate corresponding nav item
+            const navItems = document.querySelectorAll('.nav-item-hp');
+            if (pageId === 'home') {
+                navItems[0].classList.add('active');
+                renderFeaturedProducts();
+            }
+            else if (pageId === 'products') {
+                navItems[1].classList.add('active');
+                renderAllProducts('all');
+            }
+            else if (pageId === 'payment') {
+                navItems[2].classList.add('active');
+            }
+            else if (pageId === 'cart') {
+                navItems[2].classList.add('active');
+                renderCart();
+            }
+            else if (pageId === 'contact') navItems[3].classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // RENDER FEATURED PRODUCTS (HOME)
+        function renderFeaturedProducts() {
+            const container = document.getElementById('featured-products');
+            const featuredProducts = products.slice(0, 4); // Show first 4 products
+            
+            container.innerHTML = '';
+            
+            featuredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card-hp';
+                card.innerHTML = `
+                    <div class="product-img-hp">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy">
+                        ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    </div>
+                    <div class="product-info-hp">
+                        <div class="product-name-hp">${product.name}</div>
+                        <div class="product-price-hp">Rp ${product.price.toLocaleString()}</div>
+                        <div class="product-desc-hp">${product.description.substring(0, 70)}...</div>
+                        <div class="product-actions-hp">
+                            <button class="action-btn-hp action-cart-hp" onclick="addToCart(${product.id})">
+                                <i class="fas fa-cart-plus"></i> Keranjang
+                            </button>
+                            <button class="action-btn-hp action-wa-hp" onclick="buyNow(${product.id})">
+                                <i class="fab fa-whatsapp"></i> Beli
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // RENDER ALL PRODUCTS
+        function renderAllProducts(filter = 'all') {
+            const container = document.getElementById('all-products-container');
+            let filteredProducts = products;
+            
+            if (filter !== 'all') {
+                filteredProducts = products.filter(p => p.category === filter);
+            }
+            
+            container.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card-hp';
+                card.innerHTML = `
+                    <div class="product-img-hp">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy">
+                        ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    </div>
+                    <div class="product-info-hp">
+                        <div class="product-name-hp">${product.name}</div>
+                        <div class="product-price-hp">Rp ${product.price.toLocaleString()}</div>
+                        <div class="product-desc-hp">${product.description.substring(0, 70)}...</div>
+                        <div class="product-actions-hp">
+                            <button class="action-btn-hp action-cart-hp" onclick="addToCart(${product.id})">
+                                <i class="fas fa-cart-plus"></i> Keranjang
+                            </button>
+                            <button class="action-btn-hp action-wa-hp" onclick="buyNow(${product.id})">
+                                <i class="fab fa-whatsapp"></i> Beli
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            
+            // Update filter buttons
+            const filterBtns = document.querySelectorAll('#products-page .filter-btn-hp');
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(filter) || (filter === 'all' && btn.textContent === 'Semua')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // FILTER PRODUCTS
+        function filterAllProducts(category) {
+            renderAllProducts(category);
+        }
+
+        // ADD TO CART
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            updateCartCount();
+            showCartNotification(product.name);
+            
+            // If on products page, show success message
+            if (document.getElementById('products-page').classList.contains('active')) {
+                alert(`✅ ${product.name} telah ditambahkan ke keranjang!`);
+            }
+        }
+
+        // REMOVE FROM CART
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            renderCart();
+            updateCartCount();
+        }
+
+        // UPDATE QUANTITY
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity < 1) {
+                    removeFromCart(productId);
+                } else {
+                    renderCart();
+                    updateCartCount();
+                }
+            }
+        }
+
+        // RENDER CART
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const summaryContainer = document.getElementById('cart-summary');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Keranjang belanja Anda kosong</p>
+                        <button class="btn-hp btn-gold-hp" onclick="showPage('products')">
+                            <i class="fas fa-shopping-bag"></i> Belanja Sekarang
+                        </button>
+                    </div>
+                `;
+                
+                summaryContainer.innerHTML = '';
+                return;
+            }
+            
+            // Render cart items
+            let cartHTML = '';
+            let subtotal = 0;
+            let totalItems = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                totalItems += item.quantity;
+                
+                cartHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-img">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">Rp ${item.price.toLocaleString()}</div>
+                            <div class="cart-item-controls">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                    <span class="quantity">${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                                </div>
+                                <button class="remove-btn" onclick="removeFromCart(${item.id})">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = cartHTML;
+            
+            // Render summary
+            const shipping = 15000;
+            const total = subtotal + shipping;
+            cartTotal = total;
+            
+            summaryContainer.innerHTML = `
+                <h3 style="margin-bottom: 20px;">Ringkasan Belanja</h3>
+                <div class="summary-row">
+                    <span>Total Item:</span>
+                    <span>${totalItems}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>Rp ${subtotal.toLocaleString()}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Ongkos Kirim:</span>
+                    <span>Rp ${shipping.toLocaleString()}</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total:</span>
+                    <span>Rp ${total.toLocaleString()}</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">
+                    <i class="fab fa-whatsapp"></i> Checkout via WhatsApp
+                </button>
+            `;
+        }
+
+        // UPDATE CART COUNT
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count-header').textContent = totalItems;
+        }
+
+        // SHOW CART NOTIFICATION
+        function showCartNotification(productName) {
+            // Show notification animation
+            const cartIcon = document.querySelector('.cart-icon-header');
+            cartIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // MODAL FUNCTIONS
+        function showModal(modalType) {
+            document.getElementById(`${modalType}-modal`).style.display = 'flex';
+        }
+
+        function closeModal(event) {
+            if (event) {
+                if (event.target.classList.contains('modal-overlay')) {
+                    document.querySelectorAll('.modal-overlay').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                }
+            } else {
+                document.querySelectorAll('.modal-overlay').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+        }
+
+        // BUY NOW (Direct WhatsApp)
+        function buyNow(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const message = `BANG SAYA MAU BELI!\n\nPRODUK: ${product.name}\nHARGA: Rp ${product.price.toLocaleString()}\n\nSaya mau langsung beli produk ini, bagaimana caranya?`;
+            const waLink = `https://wa.me/6282320832562?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
+        }
+
+        // CHECKOUT
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Keranjang belanja kosong!');
+                return;
+            }
+            
+            // Build order message
+            let message = `BANG SAYA MAU BELI!\n\n`;
+            message += `📋 DAFTAR BELANJA:\n`;
+            
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} (${item.quantity}x) - Rp ${(item.price * item.quantity).toLocaleString()}\n`;
+            });
+            
+            message += `\n💵 TOTAL: Rp ${cartTotal.toLocaleString()}\n`;
+            message += `\nSaya ingin checkout semua item di keranjang, bagaimana proses selanjutnya?`;
+            
+            const waLink = `https://wa.me/6282320832562?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
+        }
+
+        // DANA FUNCTIONS
+        function openDana() {
+            // Membuka DANA dengan nomor tujuan
+            window.open('https://link.dana.id/qr/089677918290', '_blank');
+        }
+
+        // COPY TO CLIPBOARD
+        function copyToClipboard(text, bankName) {
+            navigator.clipboard.writeText(text.replace(/\s/g, '')).then(() => {
+                alert(`Nomor rekening ${bankName} berhasil disalin: ${text}`);
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+            });
+        }
+
+        // OPEN WHATSAPP
+        function openWhatsApp() {
+            window.open('https://wa.me/6282320832562', '_blank');
+        }
+
+        // OPEN INSTAGRAM
+        function openInstagram() {
+            window.open('https://instagram.com/berkahsecond_thrift', '_blank');
+        }
+
+        // INITIAL LOAD
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render featured products
+            renderFeaturedProducts();
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Touch optimization
+            document.querySelectorAll('button, .action-btn-hp, .btn-hp').forEach(btn => {
+                btn.style.cursor = 'pointer';
+            });
+            
+            // Close modal with ESC key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
